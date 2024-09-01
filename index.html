@@ -109,6 +109,23 @@
             font-weight: bold;
         }
 
+        .mentor-info .phone-info {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #003b6f;
+            cursor: pointer;
+        }
+
+        .phone-info i {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .phone-info span {
+            font-size: 16px;
+        }
+
         .message {
             color: #d9534f;
             font-weight: bold;
@@ -156,7 +173,10 @@
             <div id="mentorInfo" class="mentor-result mentor-info">
                 <img id="mentorPhoto" src="" alt="mentor photo">
                 <h2 id="mentorNameDisplay"></h2>
-                <a id="mentorPhone" href="tel:">Call Mentor</a>
+                <div class="phone-info" id="mentorPhone" onclick="makeCall()">
+                    <i class="fas fa-phone"></i>
+                    <span id="mentorPhoneNumber"></span>
+                </div>
             </div>
         </div>
 
@@ -178,6 +198,9 @@
             </div>
         </div>
     </div>
+
+    <!-- FontAwesome for Phone Icon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 
     <script>
         // Mentor and Mentee Data
@@ -218,12 +241,12 @@
 
         // Mentees by mentor
         const menteesByMentor = {
-            'TM Biju Varma': ['TM Ajay K. Pisharathu', 'TM Jaya Krishnan Sukumaran', 'TM Joanne Mary John', 'TM Joshwin J. Joby', 'TM Shajesh Veettil', 'TM Vineeth T.V.'],
-            'DTM Ramasubramanyan': ['TM Aju Saju', 'TM Harshitha Mandyaru', 'TM Priya S. Jadhav', 'TM Raza Saleem', 'TM Usha Sarda'],
+            'TM Biju Varma': ['TM Ajay K. Pisharathu', 'TM Jaya Krishnan Sukumaran', 'TM Joanne Mary John', 'TM Joshwin J. Joby', 'TM Shajesh Veettil', 'TM Haris Hussain'],
+            'DTM Ramasubramanyan': ['TM Aju Saju', 'TM Harshitha Mandyaru', 'TM Raza Saleem', 'TM Usha Sarda'],
             'TM Sankarnarayanan Jayaprasad': ['TM Ayush Pillai', 'TM Jamalmydeen Noorulhaq', 'TM Monassar M. Alajmi', 'TM Shajesh Veettil'],
-            'TM Sadagopan Narayanasamy': ['TM Benedict John', 'TM Dinara Mailbayeva', 'TM Kavipriya Gajendiran', 'TM Reeja Rohit'],
+            'TM Sadagopan Narayanasamy': ['TM Benedict John', 'TM Kavipriya Gajendiran', 'TM Reeja Rohit', 'TM Vineeth T.V.'],
+            'DTM Harish Bilgi': ['TM Firoz Jamal S', 'TM Govindaswamy Gajendiran', 'TM Priya S. Jadhav'],
             'TM Sabindas Sivadas': ['TM Prakhar Upadhyay'],
-            'DTM Harish Bilgi': ['TM Firoz Jamal S', 'TM Govindaswamy Gajendiran', 'TM Priya S. Jadhav', 'DTM Harish Bilgi'],
             'TM Pattan Jeeshan Ali Khan': ['TM Shamshuddin Syed'],
             'Not required': []
         };
@@ -237,6 +260,17 @@
             'DTM Harish Bilgi': 'images/harish_bilgi.png',
             'TM Sabindas Sivadas': 'images/sabindas.png',
             'TM Pattan Jeeshan Ali Khan': 'images/jeeshan.png'
+        };
+
+        // Mentor Phone Numbers
+        const mentorContacts = {
+            'TM Biju Varma': '+971502121866',
+            'DTM Ramasubramanyan': '+971502538510',
+            'TM Sankarnarayanan Jayaprasad': '+971562467464',
+            'TM Sadagopan Narayanasamy': '+971559809756',
+            'DTM Harish Bilgi': '+971564999608',
+            'TM Sabindas Sivadas': '+971503015361',
+            'TM Pattan Jeeshan Ali Khan': '+971504128814'
         };
 
         function showSuggestions(value, type) {
@@ -277,6 +311,7 @@
             const mentorPhoto = document.getElementById('mentorPhoto');
             const mentorNameDisplay = document.getElementById('mentorNameDisplay');
             const mentorPhone = document.getElementById('mentorPhone');
+            const mentorPhoneNumber = document.getElementById('mentorPhoneNumber');
             
             if (mentorName) {
                 if (mentorName === 'Not required') {
@@ -286,7 +321,8 @@
                     mentorMessage.textContent = '';
                     mentorInfo.style.display = 'block';
                     mentorNameDisplay.textContent = mentorName;
-                    mentorPhone.href = `tel:${mentorContacts[mentorName]}`;
+                    mentorPhoneNumber.textContent = mentorContacts[mentorName];
+                    mentorPhone.onclick = () => window.location.href = `tel:${mentorContacts[mentorName]}`;
                     mentorPhoto.src = mentorImages[mentorName] || 'images/default.png'; // Default image if not found
                 }
             } else {
@@ -329,6 +365,13 @@
                 document.getElementById('menteeList').style.display = 'none';
                 document.getElementById('menteeMessage').textContent = '';
                 document.querySelector('.mentee-heading').style.display = 'none'; // Hide the mentee heading
+            }
+        }
+
+        function makeCall() {
+            const phoneNumber = document.getElementById('mentorPhoneNumber').textContent;
+            if (phoneNumber) {
+                window.location.href = `tel:${phoneNumber}`;
             }
         }
     </script>
