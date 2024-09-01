@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toastmasters Mentor-Mentee List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #003b6f;
+            text-align: center;
+        }
+        .search-box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+        }
+        .search-box input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: calc(100% - 150px);
+            box-sizing: border-box;
+        }
+        .search-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .search-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .search-buttons .search-button {
+            background-color: #003b6f;
+            color: white;
+        }
+        .search-buttons .search-button:hover {
+            background-color: #00274d;
+        }
+        .search-buttons .clear-button {
+            background-color: #f44336;
+            color: white;
+        }
+        .search-buttons .clear-button:hover {
+            background-color: #c62828;
+        }
+        .autocomplete-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-top: none;
+            background: #ffffff;
+            z-index: 1000;
+            display: none;
+        }
+        .autocomplete-suggestion {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .autocomplete-suggestion:hover {
+            background-color: #f0f0f0;
+        }
+        .divider {
+            margin: 30px 0;
+            border-top: 4px solid #003b6f;
+        }
+        .mentor-info, .mentee-list {
+            display: none;
+        }
+        .mentor-info img {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .mentor-info a {
+            color: #003b6f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .message {
+            color: #d9534f;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .mentor-message {
+            margin-bottom: 20px;
+        }
+        .mentor-result, .mentee-result {
+            margin-top: 20px;
+        }
+        .mentee-heading {
+            font-size: 18px;
+            font-weight: bold;
+            color: #003b6f;
+            margin-bottom: 10px;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Toastmasters Mentor-Mentee List</h1>
+        
+        <!-- Mentor Search Box -->
+        <div class="search-box">
+            <input type="text" id="menteeName" placeholder="Who is my mentor?" onkeyup="showSuggestions(this.value, 'mentee')">
+            <div class="autocomplete-suggestions" id="suggestions"></div>
+            <div class="search-buttons">
+                <button class="search-button" onclick="searchMentor()">Search</button>
+                <button class="clear-button" onclick="clearMentorSearch()">Clear</button>
+            </div>
+            <div id="mentorMessage" class="message mentor-message"></div>
+            <div id="mentorInfo" class="mentor-result mentor-info">
+                <img id="mentorPhoto" src="" alt="Mentor Photo">
+                <h2 id="mentorNameDisplay"></h2>
+                <a id="mentorPhone" href="tel:">Call Mentor</a>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Mentee Search Box -->
+        <div class="search-box">
+            <input type="text" id="mentorNameInput" placeholder="Who are my mentees?" onkeyup="showSuggestions(this.value, 'mentor')">
+            <div class="autocomplete-suggestions" id="menteeSuggestions"></div>
+            <div class="search-buttons">
+                <button class="search-button" onclick="searchMentees()">Search</button>
+                <button class="clear-button" onclick="clearMenteeSearch()">Clear</button>
+            </div>
+            <div id="menteeMessage" class="message"></div>
+            <div id="menteeList" class="mentee-result">
+                <div class="mentee-heading">Mentees:</div>
+                <ul id="menteeListDetails"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Updated mentor data
+        const mentors = {
+            'TM Ajay K. Pisharathu': 'TM Biju Varma',
+            'TM Aju Saju': 'DTM Ramasubramanyan',
+            'TM Ayush Pillai': 'TM Sankarnarayanan Jayaprasad',
+            'TM Benedict John': 'TM Sadagopan Narayanasamy',
+            'TM Biju Varma': 'Not required',
+            'TM Dinara Mailbayeva': 'TM Sadagopan Narayanasamy',
+            'TM Firoz Jamal S': 'DTM Harish Bilgi',
+            'TM Govindaswamy Gajendiran': 'DTM Harish Bilgi',
+            'TM Haris Hussain': 'TM Biju Varma',
+            'TM Harshitha Mandyaru': 'DTM Ramasubramanyan',
+            'DTM Harish Bilgi': 'Not required',
+            'TM Jamalmydeen Noorulhaq': 'TM Sankarnarayanan Jayaprasad',
+            'TM Jaya Krishnan Sukumaran': 'TM Biju Varma',
+            'TM Joanne Mary John': 'TM Biju Varma',
+            'TM Joshwin J. Joby': 'TM Biju Varma',
+            'TM Kavipriya Gajendiran': 'TM Sadagopan Narayanasamy',
+            'TM Lahir Abdul Hasan': 'Not required',
+            'TM Monassar M. Alajmi': 'TM Sankarnarayanan Jayaprasad',
+            'TM Pattan Jeeshan Ali Khan': 'Not required',
+            'TM Prakhar Upadhyay': 'TM Sabindas Sivadas',
+            'TM Priya S. Jadhav': 'DTM Harish Bilgi',
+            'TM Rajendran Arumugam': 'Not required',
+            'TM Raza Saleem': 'DTM Ramasubramanyan',
+            'TM Reeja Rohit': 'TM Sadagopan Narayanasamy',
+            'DTM S. Ramasubramanyan': 'DTM Harish Bilgi',
+            'TM Sabindas Sivadas': 'TM Biju Varma',
+            'TM Sadagopan Narayanasamy': 'Not required',
+            'TM Sankarnarayanan Jayaprasad': 'DTM Ramasubramanyan',
+            'TM Shajesh Veettil': 'TM Sankarnarayanan Jayaprasad',
+            'TM Shamshuddin Syed': 'TM Pattan Jeeshan Ali Khan',
+            'TM Usha Sarda': 'DTM Ramasubramanyan',
+            'TM Vineeth T.V.': 'TM Sadagopan Narayanasamy'
+        };
+
+        // Mentor phone numbers
+        const mentorContacts = {
+            'TM Biju Varma': '+971502121866',
+            'DTM Ramasubramanyan': '+971502538510',
+            'TM Sankarnarayanan Jayaprasad': '+971562467464',
+            'TM Sadagopan Narayanasamy': '+971559809756',
+            'DTM Harish Bilgi': '+971564999608',
+            'TM Sabindas Sivadas': '+971503015361',
+            'TM Pattan Jeeshan Ali Khan': '+971504128814'
+        };
+
+        // Mentor images
+        const mentorImages = {
+            'TM Biju Varma': 'images/biju_varma.png',
+            'DTM Ramasubramanyan': 'images/ramasubramanyan.jpg',
+            'TM Sankarnarayanan Jayaprasad': 'images/jayaprasad.png',
+            'TM Sadagopan Narayanasamy': 'images/sadagopan.png',
+            'DTM Harish Bilgi': 'images/harish_bilgi.png',
+            'TM Sabindas Sivadas': 'images/sabindas.png',
+            'TM Pattan Jeeshan Ali Khan': 'images/jeeshan.png'
+            // Add more images as needed
+        };
+
+        // Reverse map for quick lookup
+        const menteesByMentor = Object.keys(mentors).reduce((acc, mentee) => {
+            const mentor = mentors[mentee];
+            if (mentor !== 'Not required') {
+                if (!acc[mentor]) {
+                    acc[mentor] = [];
+                }
+                acc[mentor].push(mentee);
+            }
+            return acc;
+        }, {});
+
+        function showSuggestions(value, type) {
+            const suggestions = document.getElementById(type === 'mentee' ? 'suggestions' : 'menteeSuggestions');
+            suggestions.innerHTML = '';
+            if (!value) {
+                suggestions.style.display = 'none';
+                return;
+            }
+
+            const names = type === 'mentee' ? Object.keys(mentors) : Object.keys(menteesByMentor);
+            const filtered = names.filter(name => name.toLowerCase().includes(value.toLowerCase()));
+            
+            if (filtered.length > 0) {
+                suggestions.style.display = 'block';
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = item;
+                    div.classList.add('autocomplete-suggestion');
+                    div.onclick = () => selectSuggestion(item, type);
+                    suggestions.appendChild(div);
+                });
+            } else {
+                suggestions.style.display = 'none';
+            }
+        }
+
+        function selectSuggestion(item, type) {
+            if (type === 'mentee') {
+                document.getElementById('menteeName').value = item;
+                document.getElementById('suggestions').innerHTML = '';
+                searchMentor();
+            } else {
+                document.getElementById('mentorNameInput').value = item;
+                document.getElementById('menteeSuggestions').innerHTML = '';
+                searchMentees();
+            }
+        }
+
+        function searchMentor() {
+            const menteeName = document.getElementById('menteeName').value.trim();
+            const mentorInfo = document.getElementById('mentorInfo');
+            const mentorPhoto = document.getElementById('mentorPhoto');
+            const mentorNameDisplay = document.getElementById('mentorNameDisplay');
+            const mentorPhone = document.getElementById('mentorPhone');
+            const mentorMessage = document.getElementById('mentorMessage');
+
+            if (mentors[menteeName]) {
+                const mentorName = mentors[menteeName];
+                if (mentorName === 'Not required') {
+                    mentorInfo.style.display = 'none';
+                    mentorMessage.textContent = `${menteeName} has opted not to have a mentor.`;
+                } else {
+                    const photoUrl = mentorImages[mentorName] || 'images/default.png'; // Default image if not provided
+                    const phoneNumber = mentorContacts[mentorName] || '+1234567890'; // Default phone number if not provided
+                    
+                    mentorPhoto.src = photoUrl;
+                    mentorNameDisplay.textContent = mentorName;
+                    mentorPhone.href = `tel:${phoneNumber}`;
+                    mentorPhone.textContent = `Call Mentor (${phoneNumber})`;
+
+                    mentorInfo.style.display = 'block';
+                    mentorMessage.textContent = '';
+                }
+            } else {
+                mentorInfo.style.display = 'none';
+                mentorMessage.textContent = 'Mentee not found!';
+            }
+        }
+
+        function searchMentees() {
+            const mentorName = document.getElementById('mentorNameInput').value.trim();
+            const menteeList = document.getElementById('menteeList');
+            const menteeListDetails = document.getElementById('menteeListDetails');
+            const menteeMessage = document.getElementById('menteeMessage');
+            const menteeHeading = document.querySelector('.mentee-heading');
+            
+            menteeListDetails.innerHTML = '';
+            if (menteesByMentor[mentorName]) {
+                const mentees = menteesByMentor[mentorName];
+                if (mentees.length > 0) {
+                    menteeHeading.style.display = 'block';
+                }
+                mentees.forEach(mentee => {
+                    const li = document.createElement('li');
+                    li.textContent = mentee;
+                    menteeListDetails.appendChild(li);
+                });
+                menteeList.style.display = 'block';
+                menteeMessage.textContent = '';
+            } else {
+                menteeList.style.display = 'none';
+                menteeHeading.style.display = 'none';
+                menteeMessage.textContent = `${mentorName} has not yet opted to be a mentor.`;
+            }
+        }
+
+        function clearMentorSearch() {
+            document.getElementById('menteeName').value = '';
+            document.getElementById('suggestions').innerHTML = '';
+            document.getElementById('mentorInfo').style.display = 'none';
+            document.getElementById('mentorMessage').textContent = '';
+        }
+
+        function clearMenteeSearch() {
+            document.getElementById('mentorNameInput').value = '';
+            document.getElementById('menteeSuggestions').innerHTML = '';
+            document.getElementById('menteeList').style.display = 'none';
+            document.getElementById('menteeMessage').textContent = '';
+            document.querySelector('.mentee-heading').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
