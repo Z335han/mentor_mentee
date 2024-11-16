@@ -319,34 +319,34 @@ const menteesByMentor = {
             });
         }
 
-        // Search Mentor
-        function searchMentor() {
-            const menteeName = document.getElementById('menteeName').value;
-            const mentorName = mentors[menteeName];
-            const mentorInfo = document.getElementById('mentorInfo');
-            const mentorMessage = document.getElementById('mentorMessage');
-            const mentorPhoto = document.getElementById('mentorPhoto');
-            const mentorNameDisplay = document.getElementById('mentorNameDisplay');
-            const mentorPhone = document.getElementById('mentorPhone');
-            const mentorPhoneNumber = document.getElementById('mentorPhoneNumber');
-            
-            if (mentorName) {
-                if (mentorName === 'Not Required') {
-                    mentorMessage.textContent = `${menteeName} has not opted for a mentor`;
-                    mentorInfo.style.display = 'none';
-                } else {
-                    mentorMessage.textContent = '';
-                    mentorInfo.style.display = 'block';
-                    mentorNameDisplay.textContent = mentorName;
-                    mentorPhoneNumber.textContent = mentorContacts[mentorName];
-                    mentorPhone.onclick = () => window.location.href = `tel:${mentorContacts[mentorName]}`;
-                    mentorPhoto.src = mentorImages[mentorName] || 'images/default.png'; // Default image if not found
-                }
-            } else {
-                mentorMessage.textContent = 'Mentor not found';
-                mentorInfo.style.display = 'none';
-            }
+// Search Mentor
+function searchMentor() {
+    const menteeName = document.getElementById('menteeName').value;
+    const mentorName = mentors[menteeName];
+    const mentorInfo = document.getElementById('mentorInfo');
+    const mentorMessage = document.getElementById('mentorMessage');
+    const mentorPhoto = document.getElementById('mentorPhoto');
+    const mentorNameDisplay = document.getElementById('mentorNameDisplay');
+    const mentorPhone = document.getElementById('mentorPhone');
+    const mentorPhoneNumber = document.getElementById('mentorPhoneNumber');
+    
+    if (mentorName) {
+        if (mentorName === 'Not Required') {
+            mentorMessage.textContent = `${menteeName} has not opted for a mentor.`;
+            mentorInfo.style.display = 'none';
+        } else {
+            mentorMessage.textContent = '';
+            mentorInfo.style.display = 'block';
+            mentorNameDisplay.textContent = mentorName;
+            mentorPhoneNumber.textContent = mentorContacts[mentorName];
+            mentorPhone.onclick = () => window.location.href = `tel:${mentorContacts[mentorName]}`;
+            mentorPhoto.src = mentorImages[mentorName] || 'images/default.png'; // Default image if not found
         }
+    } else {
+        mentorMessage.textContent = 'Mentor not found';
+        mentorInfo.style.display = 'none';
+    }
+}
 
         // Search Mentees
         function searchMentees() {
