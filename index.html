@@ -205,93 +205,75 @@
     <script>
         // Mentor and Mentee Data
         const mentors = {
-            "TM Afsal Abdulla": "TM Biju Varma",  				<!-- 1 -->
-            "TM Ajay": "TM Biju Varma",							<!-- 2 -->			
-            "TM Aju Saju": "DTM Ramasubramanyan",       		<!-- 3 -->
-			"TM Alaa A. Hassan": "TM Usha Sarda",				<!-- 4 -->
-            "TM Ayush Pillai": "TM Jayaprasad",					<!-- 5 -->
-            "TM Benedict John": "TM Sadagopan",					<!-- 6 -->
-            "TM Biju Varma": "Not Required",					<!-- 7 -->
-			"TM Dattatraya Yadav": "TM Priya Jadhav",			<!-- 8 -->
-			"TM Deepak Menon": "DTM Harish Bilgi"				<!-- 9 -->
-            "TM Firoz Jamal S": "DTM Harish Bilgi",				<!-- 10 -->
-            "TM Gajendiran G": "DTM Harish Bilgi",				<!-- 11 -->
-            "TM Haris Hussain": "TM Biju Varma",				<!-- 12 -->
-            "DTM Harish Bilgi": "Not Required",					<!-- 13 -->
-            "TM Harshitha Mandyaru": "TM Priya Jadhav",			<!-- 14 -->
-			"TM Jamalmydeen Noorulhaq": "TM Jayaprasad",		<!-- 15 -->
-            "TM Jaya K. Sukumaran": "TM Sabindas",				<!-- 16 -->
-			"TM Jeeshan Ali Khan Pattan": "Not Required",		<!-- 17 -->
-            "TM Jeremy Meleez": "TM Jayaprasad",				<!-- 18 -->
-            "TM Joshwin": "TM Biju Varma",						<!-- 19 -->
-            "TM Kavipriya Gajendiran": "TM Sadagopan",			<!-- 20 -->
-            "TM Lahir Abdul Hasan": "Not Required",				<!-- 21 -->
-            "TM Mahadevan Vaithilingam": "TM Jayaprasad",		<!-- 22 -->
-            "TM Md. Abdul Rehman": "TM Jeeshan Ali",			<!-- 23 -->
-            "TM Monassar M. Alajmi": "TM Jayaprasad",			<!-- 24 -->
-            "TM Prakhar": "TM Sabindas",						<!-- 25 -->
-            "TM Priya Jadhav": "DTM Harish Bilgi",				<!-- 26 -->
-            "TM Rajendran Arumugam": "Not Required",			<!-- 27 -->
-            "TM Raza": "DTM Ramasubramanyan",					<!-- 28 -->
-            "TM Reeja Rohit": "TM Sadagopan",					<!-- 29 -->
-            "TM S. Ramasubramanyan": "DTM Harish Bilgi",		<!-- 30 -->
-            "TM Sabari Sankaranarayanan": "TM Sabindas",		<!-- 31 -->
-			"TM SABINDAS SIVADAS": "TM Biju Varma",				<!-- 32 -->
-            "TM Sadagopan Narayanasamy": "Not Required",		<!-- 33 -->
-            "TM Jayaprasad": "DTM Ramasubramanyan",				<!-- 34 -->
-            "TM Saravanamuthu B": "TM Sadagopan",				<!-- 35 -->
-            "TM Shakir Ahmed": "DTM Harish Bilgi",				<!-- 36 -->
-            "TM Shamshuddin Syed": "TM Jeeshan Ali",			<!-- 37 -->
-            "TM Shibin Jose": "TM Ayush Pillai",				<!-- 38 -->
-			"TM Shreependra Prajapati": "TM Ayush Pillai",		<!-- 39 -->
-			"TM Siddique Kamarudeen": "DTM Ramasubramanyan",	<!-- 40 -->
-            "TM Usha Sarda": "DTM Ramasubramanyan",				<!-- 41 -->
-            "TM Vineeth Ramachandra Devadiga": "TM Sabindas",	<!-- 42 -->
-            "TM VINEETH RAJ T.V.": "TM Sadagopan"				<!-- 43 -->
+            "TM Afsal Abdulla": "TM Biju Varma",
+            "TM Ajay": "TM Biju Varma",
+            "TM Aju Saju": "DTM Ramasubramanyan",
+            "TM Ayush Pillai": "TM Jayaprasad",
+            "TM Benedict John": "TM Sadagopan",
+            "TM Biju Varma": "Not Required",
+            "TM Firoz Jamal S": "DTM Harish Bilgi",
+            "TM Gajendiran G": "DTM Harish Bilgi",
+            "TM Haris Hussain": "TM Biju Varma",
+            "DTM Harish Bilgi": "Not Required",
+            "TM Jamalmydeen Noorulhaq": "TM Jayaprasad",
+            "TM Jeeshan Ali Khan Pattan": "Not Required",
+            "TM Jeremy Meleez": "TM Jayaprasad",
+            "TM Joshwin": "TM Biju Varma",
+            "TM Kavipriya Gajendiran": "TM Sadagopan",
+            "TM Lahir Abdul Hasan": "Not Required",
+            "TM Mahadevan Vaithilingam": "TM Jayaprasad",
+            "TM Md. Abdul Rehman": "TM Jeeshan Ali",
+            "TM Monassar M. Alajmi": "TM Jayaprasad",
+            "TM Prakhar": "TM Sabindas",
+            "TM Priya Jadhav": "DTM Harish Bilgi",
+            "TM Rajendran Arumugam": "Not Required",
+            "TM Raza": "DTM Ramasubramanyan",
+            "TM Reeja Rohit": "TM Sadagopan",
+            "TM S. Ramasubramanyan": "DTM Harish Bilgi",
+            "TM SABINDAS SIVADAS": "TM Biju Varma",
+            "TM Sadagopan Narayanasamy": "Not Required",
+            "TM S. Jayaprasad": "DTM Ramasubramanyan",
+            "TM Saravanamuthu B": "TM Sadagopan",
+            "TM Shakir Ahmed": "DTM Harish Bilgi",
+            "TM Shamshuddin Syed": "TM Jeeshan Ali",
+            "TM Siddique Kamarudeen": "DTM Ramasubramanyan",
+            "TM Usha Sarda": "DTM Ramasubramanyan",
+            "TM Vineeth Ramachandra Devadiga": "TM Sabindas",
+            "TM VINEETH RAJ T.V.": "TM Sadagopan"
         };
 
         // Mentees by mentor
 const menteesByMentor = {
     'TM Biju Varma': ['TM Afsal Abdulla', 'TM Ajay', 'TM Haris Hussain', 'TM Joshwin', 'TM SABINDAS SIVADAS'],
-    'DTM Ramasubramanyan': ['TM Aju Saju', 'TM Raza', 'TM Jayaprasad', 'TM Siddique Kamarudeen', 'TM Usha Sarda'],
+    'DTM Ramasubramanyan': ['TM Aju Saju', 'TM Raza', 'TM S. Jayaprasad', 'TM Siddique Kamarudeen', 'TM Usha Sarda'],
     'TM Jayaprasad': ['TM Ayush Pillai', 'TM Jamalmydeen Noorulhaq', 'TM Jeremy Meleez', 'TM Mahadevan Vaithilingam', 'TM Monassar M. Alajmi'],
     'TM Sadagopan': ['TM Benedict John', 'TM Kavipriya Gajendiran', 'TM Reeja Rohit', 'TM Saravanamuthu B', 'TM Vineeth Raj T.V.'],
-    'DTM Harish Bilgi': ['TM Deepak Menon', 'TM Firoz Jamal S', 'TM Gajendiran G', 'TM Priya Jadhav', 'TM Shakir Ahmed', 'TM S. Ramasubramanyan'],
+    'DTM Harish Bilgi': ['TM Firoz Jamal S', 'TM Gajendiran G', 'TM Priya Jadhav', 'TM Shakir Ahmed', 'TM S. Ramasubramanyan'],
     'TM Jeeshan Ali': ['TM Md. Abdul Rehman', 'TM Shamshuddin Syed'],
-    'TM Sabindas Sivadas': ['TM Jaya K. Sukumaran', 'TM Prakhar', 'TM Sabari Sankaranarayanan', 'TM Vineeth Ramachandra Devadiga'],
-	'TM Ayush Pillai': ['TM Shibin Jose', 'TM Shreependra Prajapati'],
-	'TM Priya Jadhav': ['TM Dattatraya Yadav', 'TM Harshitha Mandyaru'],
-	'TM Usha Sarda': ['TM Alaa A. Hassan'],
-    'Not Required': ['TM Biju Varma', 'DTM Harish Bilgi', 'TM Jeeshan Ali Khan Pattan', 'TM Lahir Abdul Hasan', 'TM Rajendran Arumugam', 'TM Sadagopan Narayanasamy']
-	};
+    'TM Sabindas': ['TM Prakhar', 'TM Vineeth Ramachandra Devadiga'],
+    'Not Required': ['TM Biju Varma', 'TM Jeeshan Ali Khan Pattan', 'TM Lahir Abdul Hasan', 'TM Rajendran Arumugam', 'TM Sadagopan Narayanasamy'],
+};
 
         // Mentor Phone Numbers
         const mentorContacts = {
             'TM Biju Varma': '+971502121866',
             'DTM Ramasubramanyan': '+971502538510',
-            'TM Jayaprasad': '+971562467464',
+            'TM Sankarnarayanan Jayaprasad': '+971562467464',
             'TM Sadagopan Narayanasamy': '+971559809756',
             'DTM Harish Bilgi': '+971564999608',
             'TM Sabindas Sivadas': '+971503015361',
-            'TM Pattan Jeeshan Ali Khan': '+971504128814',
-			'TM Ayush Pillai': '+971501782812',
-			'TM Usha Sarda': '+971529200520',
-			'TM Priya Jadhav': '+971509484865'
-			
+            'TM Pattan Jeeshan Ali Khan': '+971504128814'
         };
 
         // Mentor Images
         const mentorImages = {
             'TM Biju Varma': 'images/biju_varma.png',
             'DTM Ramasubramanyan': 'images/ramasubramanyan.jpg',
-            'TM Jayaprasad': 'images/jayaprasad.png',
+            'TM Sankarnarayanan Jayaprasad': 'images/jayaprasad.png',
             'TM Sadagopan Narayanasamy': 'images/sadagopan.png',
             'DTM Harish Bilgi': 'images/harish_bilgi.png',
             'TM Sabindas Sivadas': 'images/sabindas.png',
-            'TM Pattan Jeeshan Ali Khan': 'images/jeeshan.png',
-			'TM Ayush Pillai': 'images/ayush.png',
-			'TM Usha Sarda': 'images/usha.png',
-			'TM Priya Jadhav': 'images/priyajadhav.png'
+            'TM Pattan Jeeshan Ali Khan': 'images/jeeshan.png'
         };
 
         // Clear input field
@@ -390,88 +372,7 @@ function searchMentor() {
                 menteeList.style.display = 'none';
             }
         }
-		
-		// Function to show autocomplete suggestions
-function showSuggestions(value, type) {
-    let suggestionsBox = (type === 'mentee') ? document.getElementById('suggestions') : document.getElementById('menteeSuggestions');
-    suggestionsBox.innerHTML = '';
-    suggestionsBox.style.display = 'none';
-
-    if (value.length === 0) return;
-
-    let list = (type === 'mentee') ? Object.keys(mentors) : Object.keys(menteesByMentor);
-    list.forEach(name => {
-        if (name.toLowerCase().includes(value.toLowerCase())) {
-            let suggestion = document.createElement('div');
-            suggestion.className = 'autocomplete-suggestion';
-            suggestion.innerText = name;
-            suggestion.onclick = function() {
-                if (type === 'mentee') {
-                    document.getElementById('menteeName').value = name;
-                    getMentor(name);
-                } else {
-                    document.getElementById('mentorNameInput').value = name;
-                    getMentees(name);
-                }
-                suggestionsBox.style.display = 'none';
-            };
-            suggestionsBox.appendChild(suggestion);
-        }
-    });
-
-    if (suggestionsBox.innerHTML !== '') {
-        suggestionsBox.style.display = 'block';
-    }
-}
-
-// Function to clear input fields
-function clearInput(inputId) {
-    document.getElementById(inputId).value = '';
-    document.getElementById('suggestions').style.display = 'none';
-    document.getElementById('menteeSuggestions').style.display = 'none';
-    document.getElementById('mentorInfo').style.display = 'none';
-    document.getElementById('menteeList').style.display = 'none';
-    document.getElementById('mentorMessage').innerText = '';
-    document.getElementById('menteeMessage').innerText = '';
-}
-
-// Function to get mentor details
-function getMentor(menteeName) {
-    let mentor = mentors[menteeName];
-    if (mentor) {
-        document.getElementById('mentorMessage').innerText = '';
-        document.getElementById('mentorInfo').style.display = 'block';
-        document.getElementById('mentorNameDisplay').innerText = mentor;
-        document.getElementById('mentorPhoto').src = 'https://via.placeholder.com/150'; // Placeholder image
-        document.getElementById('mentorPhoneNumber').innerText = 'Contact Not Available';
-    } else {
-        document.getElementById('mentorMessage').innerText = 'No mentor found.';
-        document.getElementById('mentorInfo').style.display = 'none';
-    }
-}
-
-// Function to get mentees list
-function getMentees(mentorName) {
-    let mentees = menteesByMentor[mentorName];
-    if (mentees) {
-        document.getElementById('menteeMessage').innerText = '';
-        document.getElementById('menteeList').style.display = 'block';
-        document.querySelector('.mentee-heading').style.display = 'block';
-        document.getElementById('menteeListDetails').innerHTML = '';
-        mentees.forEach(mentee => {
-            let listItem = document.createElement('li');
-            listItem.innerText = mentee;
-            document.getElementById('menteeListDetails').appendChild(listItem);
-        });
-    } else {
-        document.getElementById('menteeMessage').innerText = 'No mentees found.';
-        document.getElementById('menteeList').style.display = 'none';
-    }
-}
-
 
     </script>
 </body>
-
-
 </html>
