@@ -263,7 +263,7 @@ const menteesByMentor = {
 	'TM Priya Jadhav': ['TM Dattatraya Yadav', 'TM Harshitha Mandyaru'],
 	'TM Usha Sarda': ['TM Alaa A. Hassan'],
     'Not Required': ['TM Biju Varma', 'DTM Harish Bilgi', 'TM Jeeshan Ali Khan Pattan', 'TM Lahir Abdul Hasan', 'TM Rajendran Arumugam', 'TM Sadagopan Narayanasamy']
-};
+	};
 
         // Mentor Phone Numbers
         const mentorContacts = {
@@ -390,7 +390,88 @@ function searchMentor() {
                 menteeList.style.display = 'none';
             }
         }
+		
+		// Function to show autocomplete suggestions
+function showSuggestions(value, type) {
+    let suggestionsBox = (type === 'mentee') ? document.getElementById('suggestions') : document.getElementById('menteeSuggestions');
+    suggestionsBox.innerHTML = '';
+    suggestionsBox.style.display = 'none';
+
+    if (value.length === 0) return;
+
+    let list = (type === 'mentee') ? Object.keys(mentors) : Object.keys(menteesByMentor);
+    list.forEach(name => {
+        if (name.toLowerCase().includes(value.toLowerCase())) {
+            let suggestion = document.createElement('div');
+            suggestion.className = 'autocomplete-suggestion';
+            suggestion.innerText = name;
+            suggestion.onclick = function() {
+                if (type === 'mentee') {
+                    document.getElementById('menteeName').value = name;
+                    getMentor(name);
+                } else {
+                    document.getElementById('mentorNameInput').value = name;
+                    getMentees(name);
+                }
+                suggestionsBox.style.display = 'none';
+            };
+            suggestionsBox.appendChild(suggestion);
+        }
+    });
+
+    if (suggestionsBox.innerHTML !== '') {
+        suggestionsBox.style.display = 'block';
+    }
+}
+
+// Function to clear input fields
+function clearInput(inputId) {
+    document.getElementById(inputId).value = '';
+    document.getElementById('suggestions').style.display = 'none';
+    document.getElementById('menteeSuggestions').style.display = 'none';
+    document.getElementById('mentorInfo').style.display = 'none';
+    document.getElementById('menteeList').style.display = 'none';
+    document.getElementById('mentorMessage').innerText = '';
+    document.getElementById('menteeMessage').innerText = '';
+}
+
+// Function to get mentor details
+function getMentor(menteeName) {
+    let mentor = mentors[menteeName];
+    if (mentor) {
+        document.getElementById('mentorMessage').innerText = '';
+        document.getElementById('mentorInfo').style.display = 'block';
+        document.getElementById('mentorNameDisplay').innerText = mentor;
+        document.getElementById('mentorPhoto').src = 'https://via.placeholder.com/150'; // Placeholder image
+        document.getElementById('mentorPhoneNumber').innerText = 'Contact Not Available';
+    } else {
+        document.getElementById('mentorMessage').innerText = 'No mentor found.';
+        document.getElementById('mentorInfo').style.display = 'none';
+    }
+}
+
+// Function to get mentees list
+function getMentees(mentorName) {
+    let mentees = menteesByMentor[mentorName];
+    if (mentees) {
+        document.getElementById('menteeMessage').innerText = '';
+        document.getElementById('menteeList').style.display = 'block';
+        document.querySelector('.mentee-heading').style.display = 'block';
+        document.getElementById('menteeListDetails').innerHTML = '';
+        mentees.forEach(mentee => {
+            let listItem = document.createElement('li');
+            listItem.innerText = mentee;
+            document.getElementById('menteeListDetails').appendChild(listItem);
+        });
+    } else {
+        document.getElementById('menteeMessage').innerText = 'No mentees found.';
+        document.getElementById('menteeList').style.display = 'none';
+    }
+}
+
 
     </script>
 </body>
+
+
 </html>
